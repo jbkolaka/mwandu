@@ -481,3 +481,7 @@ abstract final class Theme {
   static const bool lightThemes = true;
   static const bool darkThemes = false;
 }
+
+/// Alias for [Theme] to avoid naming collisions with Flutter's [Theme] widget.
+typedef ThemeWhiteTheme = Theme;
+typedef ThemeWhite = Theme;
