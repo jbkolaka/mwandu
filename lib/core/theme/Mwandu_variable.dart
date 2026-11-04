@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 // Variables exported from FigCraft.
 //
 // This file is kept for backwards compatibility. The variables now live
