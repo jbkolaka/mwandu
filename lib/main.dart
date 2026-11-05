@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'core/theme/theme.dart';
+import 'core/component/alerts/alerts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -131,6 +132,37 @@ class _ThemeShowcaseScreenState extends State<ThemeShowcaseScreen> {
             const SizedBox(height: Spacing.v24px15remSpacing06),
 
             // Notification / Alert Banners
+            const AlertsNeutral(),
+            const SizedBox(height: Spacing.v8px05remSpacing03),
+            AlertsWithButtons(
+              message: 'This is a neutral alert with the button down below',
+              primaryButtonText: 'Action',
+              showSecondaryButton: false,
+              onPrimaryPressed: () {},
+            ),
+            const SizedBox(height: Spacing.v8px05remSpacing03),
+            AlertsWithButtons(
+              message: 'This is a neutral alert with optional secondary button',
+              primaryButtonText: 'Confirm',
+              showSecondaryButton: true,
+              secondaryButtonText: 'Dismiss',
+              onPrimaryPressed: () {},
+              onSecondaryPressed: () {},
+            ),
+            const SizedBox(height: Spacing.v8px05remSpacing03),
+            AlertsWithLink(
+              message: 'This is a neutral alert with an action link.',
+              linkText: 'Action link',
+              onLinkTap: () {},
+            ),
+            const SizedBox(height: Spacing.v8px05remSpacing03),
+            AlertsCritical(
+              title: 'Critical Alert',
+              message: 'This is a critical alert with danger action.',
+              primaryButtonText: 'Resolve Issue',
+              onPrimaryPressed: () {},
+            ),
+            const SizedBox(height: Spacing.v8px05remSpacing03),
             _buildAlertBanner(
               tokens: tokens,
               color: tokens.supportSuccess,
