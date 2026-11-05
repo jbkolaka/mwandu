@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'core/theme/theme.dart';
 import 'core/component/alerts/alerts.dart';
+import 'core/component/avatar/avatar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -91,6 +92,46 @@ class _ThemeShowcaseScreenState extends State<ThemeShowcaseScreen> {
           children: [
             // Theme Mode Selector
             _buildThemeSelector(context, currentMode, tokens),
+            const SizedBox(height: Spacing.v24px15remSpacing06),
+
+            // Avatar Variants
+            _buildLayerCard(
+              tokens: tokens,
+              title: 'Avatars',
+              subtitle:
+                  '56 × 56 avatar circles styled with active theme tokens.',
+              child: Wrap(
+                spacing: Spacing.v32px2remSpacing07,
+                runSpacing: Spacing.v24px15remSpacing06,
+                children: const [
+                  _AvatarExample(
+                    label: 'Icon',
+                    avatar: AvatarIcon(icon: Icons.person_outline),
+                  ),
+                  _AvatarExample(
+                    label: 'Initials',
+                    avatar: AvatarText(initials: 'JD'),
+                  ),
+                  _AvatarExample(
+                    label: 'With badge',
+                    avatar: AvatarWithBadge(
+                      avatar: AvatarText(initials: 'JD'),
+                    ),
+                  ),
+                  _AvatarExample(
+                    label: 'With flag',
+                    avatar: AvatarFlags(flag: '🇰🇪'),
+                  ),
+                  _AvatarExample(
+                    label: 'Double horizontal',
+                    avatar: AvatarDoubleHorizontal(
+                      first: Icon(Icons.person_outline, size: 20),
+                      second: Icon(Icons.person_outline, size: 20),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             const SizedBox(height: Spacing.v24px15remSpacing06),
 
             // Token Info Card
@@ -442,6 +483,25 @@ class _ThemeShowcaseScreenState extends State<ThemeShowcaseScreen> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _AvatarExample extends StatelessWidget {
+  const _AvatarExample({required this.label, required this.avatar});
+
+  final String label;
+  final Widget avatar;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        avatar,
+        const SizedBox(height: Spacing.v8px05remSpacing03),
+        Text(label, style: TextStyle(color: context.tokens.textSecondary)),
+      ],
     );
   }
 }
