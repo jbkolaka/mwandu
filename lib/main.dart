@@ -6,7 +6,6 @@ import 'core/components/avatar/avatar.dart';
 import 'core/components/badge/badge.dart';
 import 'core/components/graph/sankey_graph.dart';
 import 'core/components/graph/gauge_chart.dart';
-import 'core/components/graph/carbon_sankey_chart.dart';
 
 void main() {
   runApp(const MyApp());
@@ -170,13 +169,6 @@ class _ThemeShowcaseScreenState extends State<ThemeShowcaseScreen> {
                   ),
                 ],
               ),
-            ),
-            const SizedBox(height: Spacing.v24px15remSpacing06),
-
-            // Carbon Charts Alluvial (Sankey) — real Carbon Charts JS via WebView
-            const CarbonSankeyChart(
-              title: 'Carbon Charts — Alluvial (Sankey)',
-              height: 480,
             ),
             const SizedBox(height: Spacing.v24px15remSpacing06),
 
