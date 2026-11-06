@@ -1,8 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Badge;
 
 import 'core/theme/theme.dart';
-import 'core/component/alerts/alerts.dart';
-import 'core/component/avatar/avatar.dart';
+import 'core/components/alerts/alerts.dart';
+import 'core/components/avatar/avatar.dart';
+import 'core/components/badge/badge.dart';
+import 'core/components/graph/sankey_graph.dart';
+import 'core/components/graph/gauge_chart.dart';
+import 'core/components/graph/carbon_sankey_chart.dart';
 
 void main() {
   runApp(const MyApp());
@@ -114,9 +118,7 @@ class _ThemeShowcaseScreenState extends State<ThemeShowcaseScreen> {
                   ),
                   _AvatarExample(
                     label: 'With badge',
-                    avatar: AvatarWithBadge(
-                      avatar: AvatarText(initials: 'JD'),
-                    ),
+                    avatar: AvatarWithBadge(avatar: AvatarText(initials: 'JD')),
                   ),
                   _AvatarExample(
                     label: 'With flag',
@@ -132,6 +134,86 @@ class _ThemeShowcaseScreenState extends State<ThemeShowcaseScreen> {
                 ],
               ),
             ),
+            const SizedBox(height: Spacing.v24px15remSpacing06),
+
+            // Badges
+            _buildLayerCard(
+              tokens: tokens,
+              title: 'Badges',
+              subtitle: 'Icon in a circle container followed by the message, styled with support-color tokens.',
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Badge(
+                    message: 'Scheduled',
+                    icon: Icons.info_outline,
+                    type: BadgeType.neutral,
+                  ),
+                  const SizedBox(height: Spacing.v8px05remSpacing03),
+                  const Badge(
+                    message: 'Deployed successfully',
+                    icon: Icons.check_circle_outline,
+                    type: BadgeType.success,
+                  ),
+                  const SizedBox(height: Spacing.v8px05remSpacing03),
+                  const Badge(
+                    message: 'Storage 85% full',
+                    icon: Icons.warning_amber,
+                    type: BadgeType.warning,
+                  ),
+                  const SizedBox(height: Spacing.v8px05remSpacing03),
+                  const Badge(
+                    title: 'Failed',
+                    message: 'Build failed on step 3',
+                    icon: Icons.error_outline,
+                    type: BadgeType.error,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: Spacing.v24px15remSpacing06),
+
+            // Carbon Charts Alluvial (Sankey) — real Carbon Charts JS via WebView
+            const CarbonSankeyChart(
+              title: 'Carbon Charts — Alluvial (Sankey)',
+              height: 480,
+            ),
+            const SizedBox(height: Spacing.v24px15remSpacing06),
+
+            // Native Flutter Sankey Graph
+            SankeyGraph(
+              title: 'Energy Flow',
+              height: 300,
+              flows: const [
+                SankeyFlow(source: 'Coal', target: 'Power Plant', value: 32),
+                SankeyFlow(source: 'Gas', target: 'Power Plant', value: 28),
+                SankeyFlow(source: 'Solar', target: 'Power Plant', value: 15),
+                SankeyFlow(source: 'Wind', target: 'Power Plant', value: 10),
+                SankeyFlow(
+                  source: 'Power Plant',
+                  target: 'Residential',
+                  value: 35,
+                ),
+                SankeyFlow(
+                  source: 'Power Plant',
+                  target: 'Industrial',
+                  value: 30,
+                ),
+                SankeyFlow(
+                  source: 'Power Plant',
+                  target: 'Transport',
+                  value: 20,
+                ),
+              ],
+            ),
+            const SizedBox(height: Spacing.v24px15remSpacing06),
+
+            // Gauge Charts
+            const GaugeChart(title: 'CPU Usage', value: 42, unit: '%'),
+            const SizedBox(height: Spacing.v8px05remSpacing03),
+            const GaugeChart(title: 'Memory Pressure', value: 72, unit: '%'),
+            const SizedBox(height: Spacing.v8px05remSpacing03),
+            const GaugeChart(title: 'Disk Capacity', value: 91, unit: '%'),
             const SizedBox(height: Spacing.v24px15remSpacing06),
 
             // Token Info Card
