@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:mwandu/core/component/alerts/alerts.dart';
+import 'package:mwandu/core/components/alerts/alerts.dart';
 import 'package:mwandu/core/theme/theme.dart';
 import 'package:mwandu/main.dart';
 
