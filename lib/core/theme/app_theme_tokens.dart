@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'variables/theme_gray10.dart';
-import 'variables/theme_gray90.dart';
-import 'variables/theme_gray100.dart';
-import 'variables/theme_white.dart';
+import '../shared/styles/variables/theme_gray10.style.dart';
+import '../shared/styles/variables/theme_gray90.style.dart';
+import '../shared/styles/variables/theme_gray100.style.dart';
+import '../shared/styles/variables/theme_white.style.dart';
 
 /// Semantic token bundle for the application themes.
 ///
