@@ -3,16 +3,18 @@
 
 import 'dart:ui';
 
+import 'package:mwandu/core/shared/styles/colors.style.dart';
+
 /// Content switcher · White Theme
 abstract final class ContentSwitcher {
-  static const Color contentSwitcherSelected = Color(0xFFFFFFFF);
-  static const Color contentSwitcherBackground = Color(0xFFE0E0E0);
+  static const Color contentSwitcherSelected = CColors.white0;
+  static const Color contentSwitcherBackground = CColors.gray20;
 }
 
 /// Content switcher · Gray 10 Theme
 abstract final class ContentSwitcherGray10Theme {
-  static const Color contentSwitcherSelected = Color(0xFFFFFFFF);
-  static const Color contentSwitcherBackground = Color(0xFFE0E0E0);
+  static const Color contentSwitcherSelected = CColors.white0;
+  static const Color contentSwitcherBackground = CColors.gray20;
 }
 
 /// Content switcher · Gray 90 Theme
