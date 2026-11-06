@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'app_theme_tokens.dart';
-import 'variables/spacing.dart';
+import '../shared/styles/variables/spacing.style.dart';
 
 /// Available theme modes matching the design system token sets.
 enum AppThemeMode {
