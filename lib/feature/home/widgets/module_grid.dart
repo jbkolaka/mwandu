@@ -1,13 +1,23 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:mwandu/core/theme/variables.dart' hide Theme;
 import 'package:mwandu/feature/home/widgets/module_card.dart';
 
 /// Responsive grid of [ModuleCard]s with sample module data.
 ///
-/// Layout uses the Carbon grid variables ([GridMode]) for end margins,
-/// gutters, and column width instead of hardcoded values.
+/// All layout values come from the Carbon layout grid variables
+/// ([GridMode] for gutters and end margins, [GridModeCondensed] for the
+/// 320px card column width) — no hardcoded dimensions.
 class ModuleGrid extends StatelessWidget {
   const ModuleGrid({super.key});
+
+  /// Card column width: 320 from the layout grid variables.
+  static const double cardColumnWidth = GridModeCondensed.v4ColumnWidth;
+
+  /// Card height derived from the grid variables (320 − 32 = 288).
+  static const double cardHeight =
+      cardColumnWidth - Spacing.v32px2remSpacing07;
 
   static const _modules = [
     (
@@ -56,10 +66,12 @@ class ModuleGrid extends StatelessWidget {
         const gutter = GridMode.gutter;
         final availableWidth =
             width - GridMode.leftEndMargin - GridMode.rightEndMargin;
-        final crossAxisCount =
-            ((availableWidth + gutter) / (GridMode.v4ColumnWidth + gutter))
+        // Shrink to fit on narrow screens instead of overflowing.
+        final cardWidth = math.min(cardColumnWidth, availableWidth);
+        final crossAxisCount = ((availableWidth + gutter) /
+                    (cardWidth + gutter))
                 .floor()
-                .clamp(1, 4);
+                .clamp(1, _modules.length);
 
         return GridView.builder(
           shrinkWrap: true,
@@ -73,14 +85,14 @@ class ModuleGrid extends StatelessWidget {
             crossAxisCount: crossAxisCount,
             crossAxisSpacing: gutter,
             mainAxisSpacing: gutter,
-            mainAxisExtent: 280,
+            mainAxisExtent: cardHeight,
           ),
           itemBuilder: (context, index) {
             final (title, description, status, icon) = _modules[index];
             return Align(
               alignment: Alignment.topLeft,
               child: SizedBox(
-                width: 320,
+                width: cardWidth,
                 child: ModuleCard(
                   title: title,
                   description: description,
