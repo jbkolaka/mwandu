@@ -1,4 +1,3 @@
-import 'package:carbon_flutter/features/icon/index.dart';
 import 'package:flutter/material.dart';
 import 'package:mwandu/core/theme/variables.dart' hide Theme;
 
@@ -68,7 +67,11 @@ class ModuleCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Module Icon (Top Left)
-              Icon(icon, size: 32, color: tokens.textPrimary),
+              Icon(
+                icon,
+                size: Spacing.v32px2remSpacing07,
+                color: tokens.textPrimary,
+              ),
 
               // Status Badge & 3-dot menu (Top Right)
               Row(
@@ -81,13 +84,15 @@ class ModuleCard extends StatelessWidget {
                       vertical: Spacing.v4px025remSpacing02,
                     ),
                     decoration: BoxDecoration(
-                      color: statusColor.withOpacity(0.1), // Subtle background
-                      borderRadius: BorderRadius.circular(4),
+                      color: statusColor,
+                      borderRadius: BorderRadius.circular(
+                        Spacing.v4px025remSpacing02,
+                      ),
                     ),
                     child: Text(
                       status.label,
                       style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        color: statusColor,
+                        color: tokens.textOnColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -131,13 +136,17 @@ class ModuleCard extends StatelessWidget {
           // --- Bottom Button ---
           SizedBox(
             width: double.infinity, // Forces button to fill width
-            height: 40,
+            height: Spacing.v40px25remSpacing08,
             child: OutlinedButton(
               onPressed: onTap ?? () {},
               style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: Spacing.v12px075remSpacing04,
+                ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(
+                    Spacing.v4px025remSpacing02,
+                  ),
                 ),
               ),
               child: Row(
@@ -152,7 +161,7 @@ class ModuleCard extends StatelessWidget {
                   const SizedBox(width: Spacing.v8px05remSpacing03),
                   Icon(
                     Icons.arrow_forward,
-                    size: 18,
+                    size: Spacing.v16px1remSpacing05,
                     color: tokens.textPrimary,
                   ),
                 ],
