@@ -4,53 +4,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mwandu/core/components/alerts/alerts.dart';
 import 'package:mwandu/core/theme/theme.dart';
 import 'package:mwandu/main.dart';
+import 'package:mwandu/feature/home/screen/home.dart';
 
 void main() {
-  testWidgets('Theme system, AlertsNeutral, and counter smoke test', (
-    WidgetTester tester,
-  ) async {
-    // Build our app and trigger a frame.
+  testWidgets('Login smoke test', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
+    expect(find.text('Log in'), findsOneWidget);
 
-    // Verify initial theme is White
-    expect(find.text('Active Theme Tokens: White'), findsOneWidget);
-
-    // Verify AlertsNeutral, AlertsWithButtons, and AlertsWithLink are rendered
-    expect(find.text('This is a neutral alert'), findsOneWidget);
-    expect(
-      find.text('This is a neutral alert with the button down below'),
-      findsOneWidget,
-    );
-    expect(find.text('Action'), findsOneWidget);
-    expect(find.text('Confirm'), findsOneWidget);
-    expect(find.text('Dismiss'), findsOneWidget);
-    expect(
-      find.text('This is a neutral alert with an action link.'),
-      findsOneWidget,
-    );
-    expect(find.text('Action link'), findsOneWidget);
-    expect(find.text('Critical Alert'), findsOneWidget);
-    expect(find.text('Resolve Issue'), findsOneWidget);
-
-    // Switch theme to Gray 100
-    await tester.tap(find.text('Gray 100 (Dark)'));
+    await tester.enterText(find.byType(TextFormField).first, 'a@b.com');
+    await tester.enterText(find.byType(TextFormField).last, 'password');
+    await tester.tap(find.text('Continue'));
     await tester.pumpAndSettle();
-
-    // Verify theme changed to Gray 100
-    expect(find.text('Active Theme Tokens: Gray 100'), findsOneWidget);
-    expect(find.text('This is a neutral alert'), findsOneWidget);
-
-    // Verify counter starts at 0
-    expect(find.text('Counter: 0'), findsOneWidget);
-    expect(find.text('Counter: 1'), findsNothing);
-
-    // Tap the floating action button and trigger a frame.
-    await tester.tap(find.byType(FloatingActionButton));
-    await tester.pump();
-
-    // Verify counter incremented to 1
-    expect(find.text('Counter: 0'), findsNothing);
-    expect(find.text('Counter: 1'), findsOneWidget);
+    expect(find.byType(Home), findsOneWidget);
   });
 
   testWidgets('AlertsNeutral standalone token styling test', (
