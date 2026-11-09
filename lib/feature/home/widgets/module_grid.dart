@@ -3,6 +3,9 @@ import 'package:mwandu/core/theme/variables.dart' hide Theme;
 import 'package:mwandu/feature/home/widgets/module_card.dart';
 
 /// Responsive grid of [ModuleCard]s with sample module data.
+///
+/// Layout uses the Carbon grid variables ([GridMode]) for end margins,
+/// gutters, and column width instead of hardcoded values.
 class ModuleGrid extends StatelessWidget {
   const ModuleGrid({super.key});
 
@@ -11,31 +14,37 @@ class ModuleGrid extends StatelessWidget {
       'Identity Module',
       'Manages users, roles, and authentication across the enterprise.',
       ModuleStatus.active,
+      Icons.security_outlined,
     ),
     (
       'Billing Module',
       'Handles invoicing, subscriptions, and payment integrations.',
       ModuleStatus.active,
+      Icons.credit_card_outlined,
     ),
     (
       'Reports Module',
       'Generates scheduled and on-demand analytics reports.',
       ModuleStatus.draft,
+      Icons.analytics_outlined,
     ),
     (
       'Audit Module',
       'Tracks security events and compliance trails.',
       ModuleStatus.active,
+      Icons.fact_check_outlined,
     ),
     (
       'Notifications Module',
       'Sends email, SMS, and in-app alerts to users.',
       ModuleStatus.draft,
+      Icons.notifications_outlined,
     ),
     (
       'Legacy Sync Module',
       'Synchronizes data with older systems.',
       ModuleStatus.deprecated,
+      Icons.sync_problem_outlined,
     ),
   ];
 
@@ -44,28 +53,35 @@ class ModuleGrid extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final width = constraints.maxWidth;
-        final crossAxisCount = width >= 1024
-            ? 3
-            : width >= 640
-            ? 2
-            : 1;
+        const gutter = GridMode.gutter;
+        final availableWidth =
+            width - GridMode.leftEndMargin - GridMode.rightEndMargin;
+        final crossAxisCount = ((availableWidth + gutter) /
+                    (GridMode.v4ColumnWidth + gutter))
+                .floor()
+                .clamp(1, 4);
+
         return GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: _modules.length,
-          padding: const EdgeInsets.all(Spacing.v24px15remSpacing06),
+          padding: const EdgeInsets.only(
+            left: GridMode.leftEndMargin,
+            right: GridMode.rightEndMargin,
+          ),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: crossAxisCount,
-            crossAxisSpacing: Spacing.v16px1remSpacing05,
-            mainAxisSpacing: Spacing.v16px1remSpacing05,
+            crossAxisSpacing: gutter,
+            mainAxisSpacing: gutter,
             mainAxisExtent: 280,
           ),
           itemBuilder: (context, index) {
-            final (title, description, status) = _modules[index];
+            final (title, description, status, icon) = _modules[index];
             return ModuleCard(
               title: title,
               description: description,
               status: status,
+              icon: icon,
             );
           },
         );
