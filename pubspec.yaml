@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   web: ^1.1.0
   carbon_flutter: ^0.11.1
+  reorderable_grid_view: ^2.2.8
 
 dev_dependencies:
   flutter_test:
