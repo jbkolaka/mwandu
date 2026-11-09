@@ -15,8 +15,8 @@ class ModuleGrid extends StatelessWidget {
   /// Card column width: 320 from the layout grid variables.
   static const double cardColumnWidth = GridModeCondensed.v4ColumnWidth;
 
-  /// Card height derived from the grid variables (320 − 32 = 288).
-  static const double cardHeight = cardColumnWidth - Spacing.v32px2remSpacing07;
+  /// Card height from the grid variables so long descriptions fit.
+  static const double cardHeight = GridModeCondensed.v4ColumnWidth;
 
   static const _modules = [
     (
