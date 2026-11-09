@@ -3,14 +3,24 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:mwandu/core/theme/variables.dart' hide Theme;
 import 'package:mwandu/feature/home/widgets/module_card.dart';
+import 'package:reorderable_grid_view/reorderable_grid_view.dart';
 
 /// Responsive grid of [ModuleCard]s with sample module data.
 ///
 /// All layout values come from the Carbon layout grid variables
 /// ([GridMode] for gutters and end margins, [GridModeCondensed] for the
 /// 320px card column width) — no hardcoded dimensions.
-class ModuleGrid extends StatelessWidget {
+///
+/// Long-press a card to drag it into a new position; the order is kept
+/// in memory for this screen session.
+class ModuleGrid extends StatefulWidget {
   const ModuleGrid({super.key});
+
+  @override
+  State<ModuleGrid> createState() => _ModuleGridState();
+}
+
+class _ModuleGridState extends State<ModuleGrid> {
 
   /// Card column width: 320 from the layout grid variables.
   static const double cardColumnWidth = GridModeCondensed.v4ColumnWidth;
@@ -18,7 +28,15 @@ class ModuleGrid extends StatelessWidget {
   /// Card height from the grid variables so long descriptions fit.
   static const double cardHeight = GridModeCondensed.v4ColumnWidth;
 
-  static const _modules = [
+  /// Mutable copy of the module list so drag reorder can update the order.
+  late final List<
+    (
+      String,
+      String,
+      ModuleStatus,
+      IconData,
+    )
+  > _modules = [
     (
       'Identity Module',
       'Manages users, roles, and authentication across the enterprise.',
@@ -87,6 +105,14 @@ class ModuleGrid extends StatelessWidget {
     ),
   ];
 
+  void _onReorder(int oldIndex, int newIndex) {
+    setState(() {
+      if (oldIndex < newIndex) newIndex -= 1;
+      final item = _modules.removeAt(oldIndex);
+      _modules.insert(newIndex, item);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -103,7 +129,9 @@ class ModuleGrid extends StatelessWidget {
               _modules.length,
             );
 
-        return GridView.builder(
+        // Drag starts on long press (package default); the dragged card is
+        // shown elevated and the remaining cards shift to fill the space.
+        return ReorderableGridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: _modules.length,
@@ -117,9 +145,11 @@ class ModuleGrid extends StatelessWidget {
             mainAxisSpacing: gutter,
             mainAxisExtent: cardHeight,
           ),
+          onReorder: _onReorder,
           itemBuilder: (context, index) {
             final (title, description, status, icon) = _modules[index];
             return Align(
+              key: ValueKey(title),
               alignment: Alignment.topLeft,
               child: SizedBox(
                 width: cardWidth,
