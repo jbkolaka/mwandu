@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mwandu/core/theme/variables.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -10,9 +11,16 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    final tokens = context.tokens;
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(children: []),
+      backgroundColor: tokens.background,
+      appBar: AppBar(title: const Text('Home')),
+      body: Center(
+        child: Text(
+          'Welcome home',
+          style: TextStyle(color: tokens.textPrimary, fontSize: 24),
+        ),
+      ),
     );
   }
 }
