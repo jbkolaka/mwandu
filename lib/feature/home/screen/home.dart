@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mwandu/core/theme/variables.dart' hide Theme;
+import 'package:mwandu/feature/home/widgets/module_grid.dart';
 import 'package:mwandu/feature/home/widgets/module_header.dart';
 
 class Home extends StatefulWidget {
@@ -20,7 +21,9 @@ class _HomeState extends State<Home> {
         title: const Text('Mwandu'),
         backgroundColor: tokens.backgroundBackgroundInverse,
       ),
-      body: const SingleChildScrollView(child: ModuleHeader()),
+      body: const SingleChildScrollView(
+        child: Column(children: [ModuleHeader(), ModuleGrid()]),
+      ),
     );
   }
 }
