@@ -56,8 +56,8 @@ class ModuleGrid extends StatelessWidget {
         const gutter = GridMode.gutter;
         final availableWidth =
             width - GridMode.leftEndMargin - GridMode.rightEndMargin;
-        final crossAxisCount = ((availableWidth + gutter) /
-                    (GridMode.v4ColumnWidth + gutter))
+        final crossAxisCount =
+            ((availableWidth + gutter) / (GridMode.v4ColumnWidth + gutter))
                 .floor()
                 .clamp(1, 4);
 
@@ -77,11 +77,17 @@ class ModuleGrid extends StatelessWidget {
           ),
           itemBuilder: (context, index) {
             final (title, description, status, icon) = _modules[index];
-            return ModuleCard(
-              title: title,
-              description: description,
-              status: status,
-              icon: icon,
+            return Align(
+              alignment: Alignment.topLeft,
+              child: SizedBox(
+                width: 320,
+                child: ModuleCard(
+                  title: title,
+                  description: description,
+                  status: status,
+                  icon: icon,
+                ),
+              ),
             );
           },
         );
