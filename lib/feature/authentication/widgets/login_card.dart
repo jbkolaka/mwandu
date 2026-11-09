@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mwandu/core/shared/styles/variables/breakpoints.style.dart';
 import 'package:mwandu/core/shared/styles/variables/spacing.style.dart';
 import 'package:mwandu/core/theme/app_theme.dart';
+import 'package:mwandu/feature/home/screen/home.dart';
 
 class LoginCard extends StatefulWidget {
   const LoginCard({super.key});
@@ -16,6 +17,9 @@ class _LoginCardState extends State<LoginCard> {
   void _continue() {
     if (_formKey.currentState?.validate() ?? false) {
       FocusScope.of(context).unfocus();
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => const Home()),
+      );
     }
   }
 
