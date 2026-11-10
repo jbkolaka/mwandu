@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:mwandu/core/theme/variables.dart' hide Theme;
+import 'package:mwandu/feature/financial_management/screen/finance.dart';
 import 'package:mwandu/feature/home/widgets/module_card.dart';
 import 'package:reorderable_grid_view/reorderable_grid_view.dart';
 
@@ -113,6 +114,15 @@ class _ModuleGridState extends State<ModuleGrid> {
     });
   }
 
+  /// Opens the screen that belongs to a module card.
+  void _openModule(BuildContext context, String title) {
+    if (title == 'Financial management') {
+      Navigator.of(
+        context,
+      ).push(MaterialPageRoute<void>(builder: (_) => const Finance()));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -158,6 +168,7 @@ class _ModuleGridState extends State<ModuleGrid> {
                   description: description,
                   status: status,
                   icon: icon,
+                  onTap: () => _openModule(context, title),
                 ),
               ),
             );
