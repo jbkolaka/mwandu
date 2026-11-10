@@ -16,7 +16,7 @@ class _HomeState extends State<Home> {
     final tokens = context.tokens;
 
     return Scaffold(
-      backgroundColor: tokens.background,
+      backgroundColor: tokens.layerLayer01,
       appBar: AppBar(
         title: const Text('Mwandu'),
         backgroundColor: tokens.backgroundBackgroundInverse,

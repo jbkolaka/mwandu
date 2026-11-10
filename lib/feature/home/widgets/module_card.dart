@@ -126,7 +126,7 @@ class ModuleCard extends StatelessWidget {
               description,
               style: Theme.of(context).textTheme.bodySmall
                   ?.copyWith(color: tokens.textSecondary),
-              maxLines: 3,
+              maxLines: 6,
               overflow: TextOverflow.ellipsis,
             ),
           ),
