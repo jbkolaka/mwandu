@@ -1,7 +1,6 @@
 export './alerts/index.dart';
 export './avatar/index.dart';
 export './badge/index.dart';
-export './graph/index.dart';
 export './link/index.dart';
 export './text_field/index.dart';
 export './tile/index.dart';
