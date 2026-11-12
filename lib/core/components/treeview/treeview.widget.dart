@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mwandu/core/theme/variables.dart' hide Theme, Radius;
 
 import 'treeview.props.dart';
@@ -27,7 +28,8 @@ class _CTreeViewState extends State<CTreeView> {
     _focusNode = FocusNode(debugLabel: widget.props.label);
     _expandedIds = _defaultExpandedIds(widget.props);
     _selectedIds = _normalizeSelectedIds(widget.props.initialSelectedIds);
-    _activeId = _validActiveId(widget.props.initialActiveId) ??
+    _activeId =
+        _validActiveId(widget.props.initialActiveId) ??
         (_selectedIds.isNotEmpty ? _selectedIds.first : _firstEnabledId);
   }
 
@@ -269,7 +271,9 @@ class _CTreeViewState extends State<CTreeView> {
     if (event is! KeyDownEvent) return KeyEventResult.ignored;
     final visible = _visibleNodes();
     if (visible.isEmpty) return KeyEventResult.ignored;
-    final currentIndex = visible.indexWhere((entry) => entry.node.id == _activeId);
+    final currentIndex = visible.indexWhere(
+      (entry) => entry.node.id == _activeId,
+    );
     final index = currentIndex < 0 ? 0 : currentIndex;
     final active = visible[index];
 
@@ -283,10 +287,14 @@ class _CTreeViewState extends State<CTreeView> {
       case LogicalKeyboardKey.arrowRight:
         if (active.node.children.isNotEmpty) {
           if (_expandedIds.contains(active.node.id)) {
-            _setActive(active.node.children.firstWhere(
-              (child) => !child.disabled,
-              orElse: () => active.node.children.first,
-            ).id);
+            _setActive(
+              active.node.children
+                  .firstWhere(
+                    (child) => !child.disabled,
+                    orElse: () => active.node.children.first,
+                  )
+                  .id,
+            );
           } else {
             _toggleExpanded(active.node.id);
           }
@@ -322,9 +330,11 @@ class _CTreeViewState extends State<CTreeView> {
   }
 
   void _moveActive(List<_VisibleTreeNode> visible, int start, int direction) {
-    for (var index = start;
-        index >= 0 && index < visible.length;
-        index += direction) {
+    for (
+      var index = start;
+      index >= 0 && index < visible.length;
+      index += direction
+    ) {
       if (!visible[index].node.disabled) {
         _setActive(visible[index].node.id);
         break;
@@ -389,8 +399,7 @@ class _CTreeViewState extends State<CTreeView> {
     return ids.where(_isExpandable).toSet();
   }
 
-  Set<String> _validIds(Set<String> ids) =>
-      ids.where(_isEnabled).toSet();
+  Set<String> _validIds(Set<String> ids) => ids.where(_isEnabled).toSet();
 
   Set<String> _normalizeSelectedIds(Set<String> ids) {
     final validIds = _validIds(ids);

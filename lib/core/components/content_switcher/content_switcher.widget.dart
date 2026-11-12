@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mwandu/core/theme/variables.dart' hide Theme, Radius;
 
 import 'content_switcher.props.dart';
@@ -109,11 +110,7 @@ class _CContentSwitcherState extends State<CContentSwitcher> {
     );
   }
 
-  Widget _buildOption(
-    BuildContext context,
-    int index,
-    AppThemeTokens tokens,
-  ) {
+  Widget _buildOption(BuildContext context, int index, AppThemeTokens tokens) {
     final props = widget.props;
     final option = props.options[index];
     final selected = index == _selectedIndex;

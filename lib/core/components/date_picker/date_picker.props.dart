@@ -12,8 +12,8 @@ class CDatePickerProps {
     this.helperText,
     this.initialDate,
     this.initialDateRange,
-    this.firstDate = const DateTime(1900),
-    this.lastDate = const DateTime(2100),
+    this.firstDate,
+    this.lastDate,
     this.disabled = false,
     this.onDateChanged,
     this.onDateRangeChanged,
@@ -38,10 +38,10 @@ class CDatePickerProps {
   final DateTimeRange? initialDateRange;
 
   /// Earliest selectable date.
-  final DateTime firstDate;
+  final DateTime? firstDate;
 
   /// Latest selectable date.
-  final DateTime lastDate;
+  final DateTime? lastDate;
 
   /// Whether the field is disabled.
   final bool disabled;

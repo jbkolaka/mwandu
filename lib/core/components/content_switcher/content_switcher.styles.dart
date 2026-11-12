@@ -27,8 +27,7 @@ abstract final class CContentSwitcherStyles {
       ? ContentSwitcherGray90Theme.contentSwitcherSelected
       : ContentSwitcher.contentSwitcherSelected;
 
-  static Color selectedBorder(AppThemeTokens tokens) =>
-      tokens.borderStrong01;
+  static Color selectedBorder(AppThemeTokens tokens) => tokens.borderStrong01;
 
   static Color foreground(AppThemeTokens tokens) => tokens.textPrimary;
 

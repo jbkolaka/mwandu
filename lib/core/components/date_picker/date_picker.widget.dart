@@ -143,10 +143,18 @@ class _CDatePickerState extends State<CDatePicker> {
   Future<void> _openPicker() async {
     if (widget.props.disabled) return;
     final tokens = context.tokens;
-    final firstDate = DateUtils.dateOnly(widget.props.firstDate);
-    final lastDate = DateUtils.dateOnly(widget.props.lastDate);
+    final firstDate = DateUtils.dateOnly(
+      widget.props.firstDate ?? DateTime(1900),
+    );
+    final lastDate = DateUtils.dateOnly(
+      widget.props.lastDate ?? DateTime(2100),
+    );
     if (lastDate.isBefore(firstDate)) return;
-    final initialDate = _clampDate(_date ?? DateTime.now(), firstDate, lastDate);
+    final initialDate = _clampDate(
+      _date ?? DateTime.now(),
+      firstDate,
+      lastDate,
+    );
 
     if (widget.props.mode == CDatePickerMode.single) {
       final selected = await showDatePicker(
@@ -162,11 +170,7 @@ class _CDatePickerState extends State<CDatePicker> {
       return;
     }
 
-    final initialRange = _validInitialRange(
-      _dateRange,
-      firstDate,
-      lastDate,
-    );
+    final initialRange = _validInitialRange(_dateRange, firstDate, lastDate);
     final selectedRange = await showDateRangePicker(
       context: context,
       initialDateRange: initialRange,
@@ -217,11 +221,11 @@ class _CDatePickerState extends State<CDatePicker> {
             }
             return tokens.textPrimary;
           }),
-          todayForegroundColor: tokens.interactive,
-          todayBorder: BorderSide(color: tokens.interactive),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.zero,
+          todayForegroundColor: WidgetStatePropertyAll<Color?>(
+            tokens.interactive,
           ),
+          todayBorder: BorderSide(color: tokens.interactive),
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
         ),
       ),
       child: child ?? const SizedBox.shrink(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mwandu/core/theme/variables.dart' hide Theme, Radius;
 
 import 'tabs.props.dart';
@@ -82,8 +83,7 @@ class _CTabsState extends State<CTabs> {
   }
 
   Widget _buildTabList(BuildContext context, AppThemeTokens tokens) {
-    final horizontal =
-        widget.props.orientation == CTabsOrientation.horizontal;
+    final horizontal = widget.props.orientation == CTabsOrientation.horizontal;
     final tabs = [
       for (var index = 0; index < widget.props.tabs.length; index++)
         _buildTab(context, tokens, index),
@@ -101,10 +101,7 @@ class _CTabsState extends State<CTabs> {
             children: tabs,
           );
     final listContent = horizontal && !widget.props.fullWidth
-        ? SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: tabRow,
-          )
+        ? SingleChildScrollView(scrollDirection: Axis.horizontal, child: tabRow)
         : tabRow;
 
     return Semantics(
@@ -138,8 +135,7 @@ class _CTabsState extends State<CTabs> {
 
   Widget _buildTab(BuildContext context, AppThemeTokens tokens, int index) {
     final tab = widget.props.tabs[index];
-    final horizontal =
-        widget.props.orientation == CTabsOrientation.horizontal;
+    final horizontal = widget.props.orientation == CTabsOrientation.horizontal;
     final selected = index == _selectedIndex;
     final focused = _focusNode.hasFocus && index == _focusedIndex;
     final height = CTabsStyles.tabHeight(widget.props.size);
@@ -260,8 +256,7 @@ class _CTabsState extends State<CTabs> {
 
   KeyEventResult _handleKeyEvent(FocusNode node, KeyEvent event) {
     if (event is! KeyDownEvent) return KeyEventResult.ignored;
-    final horizontal =
-        widget.props.orientation == CTabsOrientation.horizontal;
+    final horizontal = widget.props.orientation == CTabsOrientation.horizontal;
     final key = event.logicalKey;
     final forwardKey = horizontal
         ? LogicalKeyboardKey.arrowRight
@@ -307,9 +302,11 @@ class _CTabsState extends State<CTabs> {
 
   void _focusEnabledIndex(int start, int direction) {
     final tabs = widget.props.tabs;
-    for (var index = start;
-        index >= 0 && index < tabs.length;
-        index += direction) {
+    for (
+      var index = start;
+      index >= 0 && index < tabs.length;
+      index += direction
+    ) {
       if (!tabs[index].disabled) {
         setState(() => _focusedIndex = index);
         if (widget.props.activationMode == CTabsActivationMode.automatic) {
